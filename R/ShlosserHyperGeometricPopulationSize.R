@@ -1,4 +1,4 @@
- ShlosserHyperGeometricPopulationSize <- function(counts_hist, sampling_frac){
+ShlosserHyperGeometricPopulationSize <- function(counts_hist, sampling_frac){
 estimated_pop_size = sum(counts_hist)
 numerator = counts_hist[1]*(1 - sampling_frac)*counts_hist[1]
 denominator = sampling_frac*counts_hist[1]
@@ -9,7 +9,9 @@ for(i in 2:length(counts_hist)){
 return(sum(counts_hist) + numerator/denominator)
 }
 
-ShlosserHyperGeometricPopulationSizeVariance <- function(counts_hist, sampling_prop){
+# Delta method variance of ShlosserHyperGeometricPopulationSize when sampling_prop
+# is known from a binomial control experiment, i.e. spike in RNA sequences
+ShlosserHyperGeometricPopulationSizeVariance <- function(counts_hist, sampling_prop, sample_prop_size){
 p = sampling_prop
 delta_f0 = mat.or.vec(nc = 1, nr = length(counts_hist) + 1)
 denom = 0
@@ -27,6 +29,6 @@ delta_f0[2] = numer/denom + counts_hist[1]*( ((1 - p)*denom - p*numer)/(denom^2)
 for(i in 2:length(counts_hist)){
   delta_f0[i + 1] = counts_hist[1]*( denom*(1 - p)^i - numer*i*p*(1 - p)^(i - 1))/(denom^2)
 }
-sigma = diag(c(p*(1 - p)/27900, counts_hist))
+sigma = diag(c(p*(1 - p)/sample_prop_size, counts_hist))
 return(t(delta_f0) %*% sigma %*% delta_f0)
 }
