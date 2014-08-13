@@ -1,3 +1,6 @@
+# counts_hist is a vector of count frequencies
+# counts_hist[j] = # classes observed exactly j times
+
 ShlosserHyperGeometricPopulationSize <- function(counts_hist, sampling_frac){
 estimated_pop_size = sum(counts_hist)
 numerator = counts_hist[1]*(1 - sampling_frac)*counts_hist[1]
