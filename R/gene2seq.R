@@ -76,7 +76,7 @@ gene_names2target_regions <- function(input_filename, output_filename, start_rel
 	gene_plus_seq = get_seqs(start_relative2tss, end_relative2tss, tss$transcript_start, tss$strand, tss$chromosome_name, tss$hgnc_symbol)
 	n_splits = ceiling(length(gene_plus_seq$genes)/10)
 	for(i in 1:n_splits){
-	    write_seqs(gene_plus_seq$seqs[((i - 1)*25 + 1):min(i*25, length(gene_plus_seq$seqs))], gene_plus_seq$genes[((i - 1)*25 + 1):min(i*25, length(gene_plus_seq$seqs))], gene_plus_seq$tss[((i - 1)*25 + 1):min(i*25, length(gene_plus_seq$seqs))], paste0(output_filename, i, ".txt"))
+	    write_seqs(gene_plus_seq$seqs[((i - 1)*10 + 1):min(i*10, length(gene_plus_seq$seqs))], gene_plus_seq$genes[((i - 1)*10 + 1):min(i*10, length(gene_plus_seq$seqs))], gene_plus_seq$tss[((i - 1)*10 + 1):min(i*10, length(gene_plus_seq$seqs))], paste0(output_filename, i, ".txt"))
 	 }
 }
 
